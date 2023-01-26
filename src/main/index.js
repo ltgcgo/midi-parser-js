@@ -140,8 +140,12 @@
                     this.pointer++;
                     return value;
                 },
-                readStr: function(_bytes){                                          // read as ASCII chars, the followoing _bytes
-                    return (Uint8Array.from(_bytes));
+                readStr: function(_bytes){                                          // read as raw byte sequence
+                	let bytes = new Uint8Array(_bytes);
+                	bytes.forEach((e, i) => {
+                		bytes[i] = this.readInt(1);
+                	});
+                    return bytes;
                 },
                 backOne: function(){
                     this.pointer --;                                                // allow going back one step, correcting previous mistakes
