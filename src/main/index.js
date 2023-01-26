@@ -148,11 +148,12 @@
                     return value;
                 },
                 readStr: function(_bytes){                                          // read in sequence with different encoding schemes, and slowly fall back to UTF-8
-                    let text = "", success = false;
+                    let text = "", success = false, bytes = Uint8Array.from(_bytes);
                     for (let i = 0; i < tda.length; i ++) {
                     	try {
                     		if (!success) {
-                    			text = tda[i].decode(_bytes);
+                    			text = tda[i].decode(bytes);
+                    			success = true;
                     		};
                     	} catch (err) {
                     		console.error(`Decoding with ${tda[i].encoding?.toUpperCase()} failed.`);
