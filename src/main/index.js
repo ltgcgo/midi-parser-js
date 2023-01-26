@@ -141,9 +141,7 @@
                     return value;
                 },
                 readStr: function(_bytes){                                          // read as ASCII chars, the followoing _bytes
-                    let text = '';
-                    for(let char=1; char <= _bytes; char++) text +=  String.fromCharCode(this.readInt(1));
-                    return text;
+                    return (Uint8Array.from(_bytes));
                 },
                 backOne: function(){
                     this.pointer --;                                                // allow going back one step, correcting previous mistakes
