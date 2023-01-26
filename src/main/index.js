@@ -10,13 +10,6 @@
 (function(){
     'use strict';
 
-    const tdo = {fatal:true},
-    tda = [
-    	new TextDecoder("sjis", tdo),
-    	new TextDecoder("euc-jp", tdo),
-    	new TextDecoder("utf-8")
-    ];
-
     /**
      * CROSSBROWSER & NODEjs POLYFILL for ATOB() -
      * By: https://github.com/MaxArt2501 (modified)
@@ -147,18 +140,9 @@
                     this.pointer++;
                     return value;
                 },
-                readStr: function(_bytes){                                          // read in sequence with different encoding schemes, and slowly fall back to UTF-8
-                    let text = "", success = false, bytes = Uint8Array.from(_bytes);
-                    for (let i = 0; i < tda.length; i ++) {
-                    	try {
-                    		if (!success) {
-                    			text = tda[i].decode(bytes);
-                    			success = true;
-                    		};
-                    	} catch (err) {
-                    		console.error(`Decoding with ${tda[i].encoding?.toUpperCase()} failed.`);
-                    	};
-                    };
+                readStr: function(_bytes){                                          // read as ASCII chars, the followoing _bytes
+                    let text = '';
+                    for(let char=1; char <= _bytes; char++) text +=  String.fromCharCode(this.readInt(1));
                     return text;
                 },
                 backOne: function(){
