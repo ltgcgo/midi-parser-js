@@ -10,6 +10,13 @@
 (function(){
     'use strict';
 
+    const textDecOpt = {fatal: true},
+	textDecs = [
+		new TextDecoder("sjis", textDecOpt),
+		new TextDecoder("euc-jp", textDecOpt),
+		new TextDecoder("utf-8")
+	];
+
     /**
      * CROSSBROWSER & NODEjs POLYFILL for ATOB() -
      * By: https://github.com/MaxArt2501 (modified)
