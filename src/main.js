@@ -145,6 +145,9 @@
                     for(let char=1; char <= _bytes; char++) text +=  String.fromCharCode(this.readInt(1));
                     return text;
                 },
+                backOne: function(){
+                    this.pointer --;                                                // allow going back one step, correcting previous mistakes
+                },
                 readIntVLV: function(){                                             // read a variable length value
                     let value = 0;
                     if ( this.pointer >= this.data.byteLength ){
