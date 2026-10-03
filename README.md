@@ -1,4 +1,4 @@
-_**Warning: Do not directly grab files from `dist`!**_
+_**Warning: Except for `bundle.mjs`, do not directly grab files from `dist`!**_
 
 ![logo](https://colxi.info/midi-parser-js/docs/logo.png)
 
