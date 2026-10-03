@@ -1,4 +1,7 @@
-_**Warning: Except for `bundle.mjs`, do not directly grab files from `dist`!**_
+> **Warning**
+> 
+> - Except for `bundle.mjs`, do **not** directly grab files from `dist`!
+> - Instead of using this practically unmaintained libary, it is much more recommended to migrate over to either [MICC Compatibility Shim](https://jsr.io/@ltgc/octavia/doc/miccCompat) or [native MICC](https://jsr.io/@ltgc/octavia/doc/micc), both powered by the more up-to-date MICC from the Octavia project.
 
 ![logo](https://colxi.info/midi-parser-js/docs/logo.png)
 
