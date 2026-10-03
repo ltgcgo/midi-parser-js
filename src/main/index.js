@@ -126,6 +126,7 @@
          * or 'false' if any error was generated.
          */
         Uint8: function(FileAsUint8Array){
+        	const upThis = this;
             let file = {
                 data: null,
                 pointer: 0,
@@ -148,11 +149,32 @@
                     return value;
                 },
                 readStr: function(_bytes){                                          // read as raw byte sequence
+                	// Best-effort reconstructed source, because I modified the minified file directly who knows how many years ago :P - LÉ
                 	let bytes = new Uint8Array(_bytes);
+                	let success = false, text;
                 	bytes.forEach((e, i) => {
                 		bytes[i] = this.readInt(1);
                 	});
-                    return bytes;
+                	for (let i = 0; i < textDecs.length; i ++) {
+                		if (success) break;
+                		try {
+                			text = textDecs[i].decode(bytes);
+                			if (i === 0) {
+                				for (let charPtr = 0; charPtr < text.length; charPtr ++) {
+                					let codePoint = text.charCodeAt(charPtr);
+                					if (codePoint > 191 || codePoint > 127 && codePoint < 160) {
+										throw (new RangeError(`Invalid code point: ${codePoint}`))
+                					};
+                				};
+                			};
+                			success = true;
+                			upThis.debug && console.debug(`String byte sequence in ${tda[i].encoding}`);
+                		} catch (err) {
+                			upThis.debug && console.debug(`SMF string ${err}`);
+                		};
+                	};
+                	return text || "String byte sequence read failed.";
+                    //return bytes;
                 },
                 backOne: function(){
                     this.pointer --;                                                // allow going back one step, correcting previous mistakes
